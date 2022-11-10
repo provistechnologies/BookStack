@@ -42,10 +42,14 @@ return [
 
     // Permissions and restrictions
     'permissions' => 'Berechtigungen',
-    'permissions_intro' => 'Wenn individuelle Berechtigungen aktiviert werden, überschreiben diese Einstellungen durch Rollen zugewiesene Berechtigungen.',
-    'permissions_enable' => 'Individuelle Berechtigungen aktivieren',
+    'permissions_desc' => 'Legen Sie hier Berechtigungen fest, um die Standardberechtigungen von Benutzerrollen zu überschreiben.',
+    'permissions_book_cascade' => 'In Büchern festgelegte Berechtigungen werden automatisch in untergeordnete Kapitel und Seiten kaskadiert, es sei denn, sie haben eigene Berechtigungen definiert.',
+    'permissions_chapter_cascade' => 'In Kapiteln festgelegte Berechtigungen werden automatisch in untergeordnete Seiten kaskadiert, es sei denn, sie haben eigene Berechtigungen definiert.',
     'permissions_save' => 'Berechtigungen speichern',
     'permissions_owner' => 'Besitzer',
+    'permissions_role_everyone_else' => 'Alle anderen',
+    'permissions_role_everyone_else_desc' => 'Berechtigungen für alle Rollen setzen, die nicht explizit überschrieben wurden.',
+    'permissions_role_override' => 'Berechtigungen für Rolle überschreiben',
 
     // Search
     'search_results' => 'Suchergebnisse',

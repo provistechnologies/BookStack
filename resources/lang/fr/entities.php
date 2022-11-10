@@ -42,10 +42,14 @@ return [
 
     // Permissions and restrictions
     'permissions' => 'Autorisations',
-    'permissions_intro' => 'Une fois activées, ces permissions auront la priorité sur tous les jeux de permissions préexistants.',
-    'permissions_enable' => 'Activer les permissions personnalisées',
+    'permissions_desc' => 'Définissez ici les permissions pour remplacer les permissions par défaut fournies par les rôles d\'utilisateur.',
+    'permissions_book_cascade' => 'Les permissions définies sur les livres seront automatiquement mises en cascade dans les chapitres enfants et les pages, à moins qu\'elles aient leurs propres permissions définies.',
+    'permissions_chapter_cascade' => 'Les permissions définies sur les chapitres seront automatiquement mises en cascade sur les pages enfants, à moins qu\'elles aient leurs propres permissions définies.',
     'permissions_save' => 'Enregistrer les permissions',
     'permissions_owner' => 'Propriétaire',
+    'permissions_role_everyone_else' => 'Tous les autres',
+    'permissions_role_everyone_else_desc' => 'Définir les permissions pour tous les rôles qui ne sont pas spécifiquement remplacés.',
+    'permissions_role_override' => 'Remplacer les permissions pour le rôle',
 
     // Search
     'search_results' => 'Résultats de recherche',

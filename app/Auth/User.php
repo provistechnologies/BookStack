@@ -9,6 +9,7 @@ use BookStack\Entities\Tools\SlugGenerator;
 use BookStack\Interfaces\Loggable;
 use BookStack\Interfaces\Sluggable;
 use BookStack\Model;
+use BookStack\Session as UserSession;
 use BookStack\Notifications\ResetPassword;
 use BookStack\Uploads\Image;
 use Carbon\Carbon;
@@ -361,5 +362,10 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         $this->slug = app(SlugGenerator::class)->generate($this);
 
         return $this->slug;
+    }
+
+    public function userSessions(): HasMany
+    {
+        return $this->hasMany(UserSession::class, 'session_id');
     }
 }

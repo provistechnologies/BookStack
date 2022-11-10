@@ -42,10 +42,14 @@ return [
 
     // Permissions and restrictions
     'permissions' => 'Machtigingen',
-    'permissions_intro' => 'Wanneer ingeschakeld, zullen deze machtigingen voorrang krijgen op alle ingestelde rol-machtigingen.',
-    'permissions_enable' => 'Aangepaste machtigingen aanzetten',
+    'permissions_desc' => 'Stel hier machtigingen in om de standaardmachtigingen van gebruikersrollen te overschrijven.',
+    'permissions_book_cascade' => 'Machtigingen voor boeken worden automatisch doorgegeven aan hoofdstukken en pagina\'s, tenzij deze hun eigen machtigingen hebben.',
+    'permissions_chapter_cascade' => 'Machtigingen ingesteld op hoofdstukken zullen automatisch worden doorgegeven aan onderliggende pagina\'s, tenzij deze hun eigen machtigingen hebben.',
     'permissions_save' => 'Machtigingen opslaan',
     'permissions_owner' => 'Eigenaar',
+    'permissions_role_everyone_else' => 'De rest',
+    'permissions_role_everyone_else_desc' => 'Stel machtigingen in voor alle rollen die niet specifiek overschreven worden.',
+    'permissions_role_override' => 'Overschrijf machtigingen voor rol',
 
     // Search
     'search_results' => 'Zoekresultaten',

@@ -42,10 +42,14 @@ return [
 
     // Permissions and restrictions
     'permissions' => 'Permissões',
-    'permissions_intro' => 'Uma vez ativadas, estas permissões terão prioridade sobre quaisquer outro conjunto de permissões.',
-    'permissions_enable' => 'Ativar Permissões Personalizadas',
+    'permissions_desc' => 'Definir, aqui, as permissões para substituir o padrão fornecido por papéis de utilizadores.',
+    'permissions_book_cascade' => 'Permissões definidas em livros serão automaticamente convertidas para páginas e capítulos filhos, a menos que tenham suas próprias permissões definidas.',
+    'permissions_chapter_cascade' => 'Permissões definidas em capítulos serão automaticamente convertidas em páginas filhas, a menos que tenham suas próprias permissões definidas.',
     'permissions_save' => 'Guardar Permissões',
     'permissions_owner' => 'Proprietário',
+    'permissions_role_everyone_else' => 'Restante',
+    'permissions_role_everyone_else_desc' => 'Definir permissões para todos os papéis não substituídos especificamente.',
+    'permissions_role_override' => 'Substituir permissões para o papel',
 
     // Search
     'search_results' => 'Resultado(s) da Pesquisa',

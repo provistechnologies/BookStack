@@ -42,10 +42,14 @@ return [
 
     // Permissions and restrictions
     'permissions' => '权限',
-    'permissions_intro' => '本设置优先于每个用户角色本身所具有的权限。',
-    'permissions_enable' => '启用自定义权限',
+    'permissions_desc' => '在此处设置权限以覆盖用户角色提供的默认权限。',
+    'permissions_book_cascade' => '书籍上设置的权限将自动应用到子章节和子页面，除非它们有自己的权限设置。',
+    'permissions_chapter_cascade' => '章节上设置的权限将自动应用到子页面，除非它们有自己的权限设置。',
     'permissions_save' => '保存权限',
     'permissions_owner' => '拥有者',
+    'permissions_role_everyone_else' => '其他所有人',
+    'permissions_role_everyone_else_desc' => '为所有未被特别覆盖的角色设置权限。',
+    'permissions_role_override' => '覆盖角色权限',
 
     // Search
     'search_results' => '搜索结果',

@@ -42,10 +42,14 @@ return [
 
     // Permissions and restrictions
     'permissions' => 'Õigused',
-    'permissions_intro' => 'Kui kohandatud õigused on lubatud, rakendatakse neid eelisjärjekorras, enne rolli õiguseid.',
-    'permissions_enable' => 'Luba kohandatud õigused',
+    'permissions_desc' => 'Sea siin õigused, et kirjutada üle rollide vaikimisi õigused.',
+    'permissions_book_cascade' => 'Raamatutele seatud õigused rakenduvad automaatselt peatükkidele ja lehtedele, kui neile pole seatud oma õiguseid.',
+    'permissions_chapter_cascade' => 'Peatükkidele seatud õigused rakenduvad automaatselt lehtedele, kui neile pole seatud oma õiguseid.',
     'permissions_save' => 'Salvesta õigused',
     'permissions_owner' => 'Omanik',
+    'permissions_role_everyone_else' => 'Kõik muud',
+    'permissions_role_everyone_else_desc' => 'Sea õigused kõigile rollidele, mida pole üle kirjutatud.',
+    'permissions_role_override' => 'Kirjuta rolli õigused üle',
 
     // Search
     'search_results' => 'Otsingutulemused',
