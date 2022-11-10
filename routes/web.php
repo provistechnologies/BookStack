@@ -32,7 +32,9 @@ use BookStack\Http\Controllers\UserController;
 use BookStack\Http\Controllers\UserProfileController;
 use BookStack\Http\Controllers\UserSearchController;
 use BookStack\Http\Controllers\WebhookController;
+use BookStack\Http\Controllers\SessionUserController;
 use BookStack\Http\Middleware\VerifyCsrfToken;
+use BookStack\Session;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Support\Facades\Route;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
@@ -52,6 +54,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/api/docs', [Api\ApiDocsController::class, 'display']);
 
     Route::get('/pages/recently-updated', [PageController::class, 'showRecentlyUpdated']);
+
+    // Session Users routes
+    Route::get('/session-users', [SessionUserController::class, 'index']);
+    Route::get('/user-sessions/{id}', [SessionUserController::class, 'userSessions']);
+    Route::get('/session-screenshots/{id}', [SessionUserController::class, 'sessionScreenshot']);
 
     // Shelves
     Route::get('/create-shelf', [BookshelfController::class, 'create']);
