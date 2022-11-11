@@ -19,6 +19,7 @@ use BookStack\Http\Controllers\Api\RecycleBinApiController;
 use BookStack\Http\Controllers\Api\SearchApiController;
 use BookStack\Http\Controllers\Api\UserApiController;
 use BookStack\Http\Controllers\Api\SessionApiController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('docs.json', [ApiDocsController::class, 'json']);
@@ -81,6 +82,6 @@ Route::put('recycle-bin/{deletionId}', [RecycleBinApiController::class, 'restore
 Route::delete('recycle-bin/{deletionId}', [RecycleBinApiController::class, 'destroy']);
 
 // sessions route
-Route::post('login', function(){ return true;});
+Route::post('login', function(){ return Auth::user();});
 Route::post('start-session', [SessionApiController::class, 'startSession']);
 Route::post('update-session', [SessionApiController::class, 'updateSession']);
