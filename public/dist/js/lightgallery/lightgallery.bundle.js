@@ -279,38 +279,6 @@
   };
   
   /**
-   * The callback for the event 'mouseenter'. It assumes that the event currentTarget is an entry.
-   * It shows the caption using jQuery (or using CSS if it is configured so)
-   *
-   * @param {Event} eventObject the event object
-   */
-  JustifiedGallery.prototype.onEntryMouseEnterForCaption = function (eventObject) {
-    var $caption = this.captionFromEntry($(eventObject.currentTarget));
-    if (this.settings.cssAnimation) {
-      $caption.addClass('caption-visible').removeClass('caption-hidden');
-    } else {
-      $caption.stop().fadeTo(this.settings.captionSettings.animationDuration,
-          this.settings.captionSettings.visibleOpacity);
-    }
-  };
-  
-  /**
-   * The callback for the event 'mouseleave'. It assumes that the event currentTarget is an entry.
-   * It hides the caption using jQuery (or using CSS if it is configured so)
-   *
-   * @param {Event} eventObject the event object
-   */
-  JustifiedGallery.prototype.onEntryMouseLeaveForCaption = function (eventObject) {
-    var $caption = this.captionFromEntry($(eventObject.currentTarget));
-    if (this.settings.cssAnimation) {
-      $caption.removeClass('caption-visible').removeClass('caption-hidden');
-    } else {
-      $caption.stop().fadeTo(this.settings.captionSettings.animationDuration,
-          this.settings.captionSettings.nonVisibleOpacity);
-    }
-  };
-  
-  /**
    * Add the handlers of the entry for the caption
    *
    * @param $entry the entry to modify

@@ -2,11 +2,8 @@
 
 namespace BookStack\Http\Controllers;
 
-use BookStack\Auth\User as AuthUser;
-use Illuminate\Http\Request;
 use BookStack\Session as UsersSession;
 use BookStack\Screenshot;
-use BookStack\Auth\User;
 
 
 class SessionUserController extends Controller
@@ -25,7 +22,11 @@ class SessionUserController extends Controller
 
     public function sessionScreenshot($session_id = 0)
     {   
+        $sessionUser = UsersSession::where('id', $session_id)->with('userSession')->first();
         $sessionScreenshots = Screenshot::where('session_id', $session_id)->get();
-        return view('session-user.session-screenshots', ['sessionScreenshots' => $sessionScreenshots]);
+        return view('session-user.session-screenshots', [
+            'sessionScreenshots' => $sessionScreenshots,
+            'sessionUser' => $sessionUser,
+            ]);
     }
 }
