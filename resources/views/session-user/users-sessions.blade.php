@@ -55,7 +55,7 @@
                                      {{$session->userSession->email}}
                                    </th>
                                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                                     {{$session->session_start_time}}
+                                     {{$session->session_end_time}}
                                    </th>
                                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                      <button>
@@ -68,7 +68,7 @@
                       @else
                            <tr>
                              <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                              No Session awailable
+                              No Session available
                              </th>
                            </tr>
                       @endif
