@@ -2,31 +2,35 @@
 
 namespace BookStack\Http\Controllers;
 
-use BookStack\Session as UsersSession;
-use BookStack\Screenshot;
-
+use BookStack\Actions\UserSessionRepo;
 
 class SessionUserController extends Controller
 {
+    protected $UserSessionRepo;
+
+    public function __construct(UserSessionRepo $UserSessionRepo)
+    {
+        $this->UserSessionRepo = $UserSessionRepo;
+    }
+
     public function index()
     {
-        $sessionUsers = UsersSession::with('userSession')->groupBy('user_id')->get();
+        $sessionUsers = $this->UserSessionRepo->getSessionUsers();
         return view('session-user.index', ['sessionUsers' => $sessionUsers]);
     }
 
     public function userSessions($user_id = 0)
     {   
-        $userAllSessions = UsersSession::where('user_id', $user_id)->with('userSession')->get();
+        $userAllSessions = $this->UserSessionRepo->getSessionByUserId($user_id);
         return view('session-user.users-sessions', ['userAllSessions' => $userAllSessions]);
     }
 
     public function sessionScreenshot($session_id = 0)
     {   
-        $sessionUser = UsersSession::where('id', $session_id)->with('userSession')->first();
-        $sessionScreenshots = Screenshot::where('session_id', $session_id)->get();
+        $screenshotData = $this->UserSessionRepo->getScreenshotsBySessionId($session_id);
         return view('session-user.session-screenshots', [
-            'sessionScreenshots' => $sessionScreenshots,
-            'sessionUser' => $sessionUser,
+            'sessionScreenshots' => $screenshotData['sessionScreenshots'],
+            'sessionUser' => $screenshotData['sessionUser'],
             ]);
     }
 }

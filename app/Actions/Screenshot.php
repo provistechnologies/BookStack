@@ -1,9 +1,9 @@
 <?php
 
-namespace BookStack;
+namespace BookStack\Actions;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use BookStack\Model;
 
 class Screenshot extends Model
 {
