@@ -5,7 +5,10 @@
         <main class="card content-wrap">
             <h1 class="list-heading">All Session Users</h1>
 
-
+            <div class="form-group text-right">
+              <a href="{{ URL::previous() }}" class="button text-white px-lg">Go Back</a>
+            </div>
+            
             <div class="flex flex-col">
               <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
@@ -50,7 +53,7 @@
                       @else
                            <tr>
                              <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                              No user awailable
+                              No user available
                              </th>
                            </tr>
                       @endif

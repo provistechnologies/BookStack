@@ -1,12 +1,13 @@
 <?php
 
-namespace BookStack;
+namespace BookStack\Actions;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use BookStack\Model;
 use BookStack\Auth\User;
 
-class Session extends Model
+class UserSession extends Model
 {
     use HasFactory;
     protected $table = 'tbl_sessions';
@@ -17,7 +18,7 @@ class Session extends Model
         'session_date',
     ];
 
-    public function userSession()
+    public function userSession() : BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }
