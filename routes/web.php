@@ -56,8 +56,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/pages/recently-updated', [PageController::class, 'showRecentlyUpdated']);
 
     // Session Users routes
-    Route::get('/session-users', [SessionUserController::class, 'index']);
-    Route::get('/user-sessions/{id}', [SessionUserController::class, 'userSessions']);
+    Route::get('/tracker-sessions/', [SessionUserController::class, 'index']);
+    // Route::post('/tracker-sessions/', [SessionUserController::class, 'index']);
     Route::get('/session-screenshots/{id}', [SessionUserController::class, 'sessionScreenshot']);
 
     // Shelves

@@ -80,9 +80,8 @@
             <div>
                 <div id="recent-activity">
                     <div class="card mb-xl">
-                        <h3 class="card-title">All Tracker Users</h3>
-                        {{-- @include('common.activity-list', ['activity' => $activity]) --}}
-                        <a href="{{ url('/session-users')  }}" class="card-footer-link">View All Tracker users</a>
+                        <h3 class="card-title">All Tracker Sessions</h3>
+                        <a href="{{ url('/tracker-sessions')  }}" class="card-footer-link">View All Tracker Session</a>
                     </div>
                 </div>
             </div>
