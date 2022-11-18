@@ -15,53 +15,11 @@ class SessionUserController extends Controller
 
     public function index(Request $request)
     {   
-        $session_date_order = 'desc';
-        $start_time_order = 'desc';
-        $name_order = 'desc';
-        $email_order = 'desc';
-        $end_time_order = 'desc';
-        if ($request->has('col_name') && !empty($request->col_name)) {
-            if ($request->col_name == 'session_date') {
-                if ($request->order == 'desc') {
-                    $session_date_order = 'asc';
-                }
-                if ($request->order == 'asc') {
-                    $session_date_order = 'desc';
-                }
-            }
-            if ($request->col_name == 'session_start_time') {
-                if ($request->order == 'desc') {
-                    $start_time_order = 'asc';
-                }
-                if ($request->order == 'asc') {
-                    $start_time_order = 'desc';
-                }
-            }
-            if ($request->col_name == 'name') {
-                if ($request->order == 'desc') {
-                    $name_order = 'asc';
-                }
-                if ($request->order == 'asc') {
-                    $name_order = 'desc';
-                }
-            }
-            if ($request->col_name == 'email') {
-                if ($request->order == 'desc') {
-                    $email_order = 'asc';
-                }
-                if ($request->order == 'asc') {
-                    $email_order = 'desc';
-                }
-            }
-            if ($request->col_name == 'session_end_time') {
-                if ($request->order == 'desc') {
-                    $end_time_order = 'asc';
-                }
-                if ($request->order == 'asc') {
-                    $end_time_order = 'desc';
-                }
-            }
-        }
+        $session_date_order = $request->get('col_name') == 'session_date' ? $request->get('order', 'desc') : 'desc';
+        $start_time_order = $request->get('col_name') == 'session_start_time' ? $request->get('order', 'desc') : 'desc';
+        $name_order = $request->get('col_name') == 'name' ? $request->get('order', 'desc') : 'desc';
+        $email_order = $request->get('col_name') == 'email' ? $request->get('order', 'desc') : 'desc';
+        $end_time_order = $request->get('col_name') == 'session_end_time' ? $request->get('order', 'desc') : 'desc';
 
         $users = $this->UserSessionRepo->getUsers();
         if (count($request->all()) > 0) {

@@ -19,12 +19,12 @@
                       </select>
                     </div>
                     <div class="basis-1/6">
-                      <label for="from-date">From Date : </label>
-                      <input type="date" id="from-date" name="from_date" value="{{ !empty($filterData) ? $filterData->from_date ? $filterData->from_date : '' : ''}}">
+                      <label for="fromDate">From Date : </label>
+                      <input type="date" id="fromDate" name="from_date" value="{{ !empty($filterData) ? $filterData->from_date ? $filterData->from_date : '' : ''}}">
                     </div>
                     <div class="basis-1/6">
-                      <label for="to-date">To Date : </label>
-                      <input type="date" id="to-date" name="to_date" value="{{ !empty($filterData) ? $filterData->to_date ? $filterData->to_date : '' : ''}}">
+                      <label for="toDate">To Date : </label>
+                      <input type="date" id="toDate" name="to_date" value="{{ !empty($filterData) ? $filterData->to_date ? $filterData->to_date : '' : ''}}" max="" min="">
                     </div>
                   </div>
                   
@@ -44,6 +44,9 @@
                     </div>
                   </div>
                 </div>
+                <div>
+                  <a href="{{ url('/tracker-sessions')  }}" class="card-footer-link">clear Filter</a>
+                </div>
                 <div class="flex flex-col">
                   <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
@@ -55,19 +58,19 @@
                                 Sr No.
                               </th>
                               <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                                <button class="sort-column" id="session_date" data-order="{{$session_date_order}}">Session Date</button>
+                                <button class="sort-column" id="session_date" data-order="{{$session_date_order == 'desc' ? 'asc' : 'desc'}}">Session Date</button>
                               </th>
                               <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                                <button class="sort-column" id="session_start_time" data-order="{{$start_time_order}}" >Session Start Time</button>
+                                <button class="sort-column" id="session_start_time" data-order="{{$start_time_order == 'desc' ? 'asc' : 'desc'}}" >Session Start Time</button>
                               </th>
                               <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                                <button class="sort-column" id="name" data-order="{{$name_order}}">user name</button>
+                                <button class="sort-column" id="name" data-order="{{$name_order == 'desc' ? 'asc' : 'desc'}}">user name</button>
                               </th>
                               <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                                <button class="sort-column" id="email" data-order="{{$email_order}}">User Email</button>
+                                <button class="sort-column" id="email" data-order="{{$email_order == 'desc' ? 'asc' : 'desc'}}">User Email</button>
                               </th>
                               <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                                <button class="sort-column" id="session_end_time" data-order="{{$end_time_order}}">Session End Time</button>
+                                <button class="sort-column" id="session_end_time" data-order="{{$end_time_order == 'desc' ? 'asc' : 'desc'}}">Session End Time</button>
                               </th>
                               <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                 Action
@@ -127,6 +130,20 @@
 @stop
 @section('scripts')
 <script nonce="{{ $cspNonce }}">
+  
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth() + 1;
+  var yyyy = today.getFullYear();
+  today = yyyy + '-' + mm + '-' + dd;
+  document.getElementById("toDate").setAttribute("max", today);
+  document.getElementById("fromDate").setAttribute("max", today);
+  let from_date = document.getElementById("fromDate");
+  from_date.addEventListener("change", function(event) {
+    console.log('okay');
+    document.getElementById("toDate").setAttribute("min", this.value);
+  });
+
   let filter_form = document.getElementById("filter-form");
   let formData = new FormData();
   let sort_by_start_time = document.getElementById("session_start_time");
