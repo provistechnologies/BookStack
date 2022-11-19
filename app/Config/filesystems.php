@@ -20,6 +20,9 @@ return [
     // Filesystem to use specifically for file attachments.
     'attachments' => env('STORAGE_ATTACHMENT_TYPE', env('STORAGE_TYPE', 'local')),
 
+    // Filesystem to use specifically for screenshots.
+    'screenshots' => env('STORAGE_SCREENSHOT_TYPE', env('STORAGE_TYPE', 'local')),
+
     // Storage URL
     // This is the url to where the storage is located for when using an external
     // file storage service, such as s3, to store publicly accessible assets.

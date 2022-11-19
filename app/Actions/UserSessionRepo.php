@@ -1,10 +1,8 @@
 <?php
 
 namespace BookStack\Actions;
-
-use BookStack\Uploads\ScreenshotRepo;
-use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use BookStack\Uploads\ScreenshotRepo;
 
 /**
  * Class CommentRepo.
@@ -26,17 +24,18 @@ class UserSessionRepo
         $this->screenshotRepo = $screenshotRepo;
     }
 
+    public function getUsers()
+    {
+        return $this->userSession->with('userSession')->groupBy('user_id')->get();
+    }
+
     /**
      * Get all session users.
      */
-    public function getSessionUsers()
-    {
-        return $this->userSession->with('userSession')->groupBy('user_id')->orderBy('id', 'desc')->get();
-    }
 
-    public function getSessionByUserId($user_id)
+    public function getAllSession()
     {
-        return $this->userSession->where('user_id', $user_id)->with('userSession')->orderBy('id', 'desc')->get();
+        return $this->userSession->with('userSession')->where('created_at', '>=', Carbon::now()->subDays(30)->endOfDay())->orderBy('id', 'desc')->paginate(15);
     }
 
     public function getScreenshotsBySessionId($session_id)
@@ -47,65 +46,58 @@ class UserSessionRepo
         return $screenshotData;
     }
 
-    public function checkSession($authUser_id, $current_date)
+    public function getSession($authUser_id, $current_date)
     {
         return $this->userSession->where('user_id', $authUser_id)->where('session_date', $current_date)->first();
     }
-    
-    // Apis functions for tracker
-    
-    public function startUserSession()
-    {
-        if (Auth::user()) {
-            $current_date = Carbon::now()->toDateString();
-            $authUser_id = Auth::user()->id;
-            $session = $this->userSession->where('user_id', $authUser_id)->where('session_date', $current_date)->first();
-            if (!empty($session)) {
-                return response()->json([
-                    'success' => true,
-                    'data' => $session,
-                ], 200);
 
-            } else {
-                $sessionData = [];
-                $sessionData['user_id'] = $authUser_id;
-                $sessionData['session_date'] =  $current_date;
-                $sessionData['session_start_time'] = Carbon::now();
-                $sessionDetail = $this->userSession->create($sessionData);
-                return response()->json([
-                    'success' => true,
-                    'data' => $sessionDetail,
-                ], 200);
-            }
-        }
+    public function createNewSession($sessionData)
+    {
+        return $this->userSession->create($sessionData);
     }
 
-    public function updateUserSession($request_data)
+    public function getSessionById($session_id)
     {
-        if (Auth::user()) {
-            $session = $this->userSession->where('id', $request_data->session_id)->first();
-            if ($request_data->session_end_time) {
-                $end_session = [
-                    'session_end_time' => $request_data->session_end_time,
-                ];
-                $session->fill($end_session)->save();
+        return $this->userSession->where('id', $session_id)->first();
+    }
+
+    public function addScreenshot($screnshotData)
+    {
+        return $this->screenshot->create($screnshotData);
+    }
+
+    public function saveEndTime($session, $end_session)
+    {
+        $session->fill($end_session)->save();
+    }
+
+    public function getSessionByFilters($request_data) {
+        $filterSessions = $this->userSession->query();
+        if ($request_data->has('user_id') && !empty($request_data->user_id)) {
+            $filterSessions->where('user_id', intval($request_data->user_id));
+        }
+        if ($request_data->has('from_date') && !empty($request_data->from_date)) {
+            $filterSessions->where('created_at','>=', $request_data->from_date);
+        }
+        if ($request_data->has('to_date') && !empty($request_data->to_date)) {
+            $filterSessions->where('created_at','<=', $request_data->to_date);
+        }
+        if ($request_data->has('search_keyword') && !empty($request_data->search_keyword)) {
+            $filterSessions->whereRelation('userSession', function ($query) use ($request_data) {
+                $query->where('name', 'LIKE', '%'. $request_data->search_keyword .'%')
+                ->orWhere('email', 'LIKE', '%'. $request_data->search_keyword .'%');
+            });
+        }
+        if (!empty($request_data->col_name) && !empty($request_data->order) ) {
+            if ($request_data->col_name == 'name' || $request_data->col_name == 'email') {
+                return $filterSessions->with(['userSession' => function ($q) use ($request_data){
+                        $q->orderBy($request_data->col_name, $request_data->order);
+                    }])->paginate(15);
+            } else {
+                return $filterSessions->orderBy($request_data->col_name, $request_data->order)->with('userSession')->paginate(15)->withQueryString();
             }
-            $screnshotData = [];
-            if (!empty($session)) {
-                $screnshotData['session_id'] = $session->id;
-                $screnshotData['screenshot_time'] = $request_data->screenshot_time;
-                $screnshotData['key_count'] = $request_data->key_count;
-                if (!empty($request_data->file('screenshot'))) {
-                    $imageUpload = $request_data->file('screenshot');
-                    $screenshotData = $this->screenshotRepo->saveScreemshot($imageUpload, $session->id);
-                    $screnshotData['screenshot'] = $screenshotData->url;
-                    $screnshotData = $this->screenshot->create($screnshotData);
-                }
-            }
-            return response()->json([
-                'success' => true,
-                'data' => $session,
-            ], 200);
+        } else {
+            return $filterSessions->orderBy('id', 'desc')->with('userSession')->paginate(15)->withQueryString();
         }
     }
 

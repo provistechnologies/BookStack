@@ -3,7 +3,7 @@
 namespace BookStack\Http\Controllers;
 
 use BookStack\Actions\UserSessionRepo;
-
+use Illuminate\Http\Request;
 class SessionUserController extends Controller
 {
     protected $UserSessionRepo;
@@ -13,16 +13,31 @@ class SessionUserController extends Controller
         $this->UserSessionRepo = $UserSessionRepo;
     }
 
-    public function index()
-    {
-        $sessionUsers = $this->UserSessionRepo->getSessionUsers();
-        return view('session-user.index', ['sessionUsers' => $sessionUsers]);
-    }
-
-    public function userSessions($user_id = 0)
+    public function index(Request $request)
     {   
-        $userAllSessions = $this->UserSessionRepo->getSessionByUserId($user_id);
-        return view('session-user.users-sessions', ['userAllSessions' => $userAllSessions]);
+        $session_date_order = $request->get('col_name') == 'session_date' ? $request->get('order', 'desc') : 'desc';
+        $start_time_order = $request->get('col_name') == 'session_start_time' ? $request->get('order', 'desc') : 'desc';
+        $name_order = $request->get('col_name') == 'name' ? $request->get('order', 'desc') : 'desc';
+        $email_order = $request->get('col_name') == 'email' ? $request->get('order', 'desc') : 'desc';
+        $end_time_order = $request->get('col_name') == 'session_end_time' ? $request->get('order', 'desc') : 'desc';
+
+        $users = $this->UserSessionRepo->getUsers();
+        if (count($request->all()) > 0) {
+            $allSessions = $this->UserSessionRepo->getSessionByFilters($request);
+        } else {
+            $allSessions = $this->UserSessionRepo->getAllSession();
+            $request = [];
+        }
+        return view('session-user.index', [
+            'allSessions' => $allSessions,
+            'users' => $users,
+            'filterData' => $request,
+            'session_date_order' => $session_date_order,
+            'start_time_order' => $start_time_order,
+            'name_order' => $name_order,
+            'email_order' => $email_order,
+            'end_time_order' => $end_time_order,
+          ]);
     }
 
     public function sessionScreenshot($session_id = 0)
