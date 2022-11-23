@@ -73,6 +73,9 @@
                                 <button class="sort-column" id="session_end_time" data-order="{{$end_time_order == 'desc' ? 'asc' : 'desc'}}">Session End Time</button>
                               </th>
                               <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                Total Time
+                              </th>
+                              <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                 Action
                               </th>
                             </tr>
@@ -98,6 +101,19 @@
                                    </th>
                                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                      {{$session->session_end_time}}
+                                   </th>
+                                   <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                     @php
+                                     if ( strtotime($session->session_end_time) > 0) {
+                                      $start_time = new DateTime($session->session_start_time);
+                                      $end_time = new DateTime($session->session_end_time);
+                                      $time_duration = $start_time->diff($end_time);
+                                      $total_time = $time_duration->format('%h')." Hours ".$time_duration->format('%i')." Minutes ".$time_duration->format('%s')." Seconds";
+                                     } else {
+                                       $total_time = "Not stopped";
+                                     }
+                                     @endphp
+                                     {{$total_time}}
                                    </th>
                                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                      <button>
