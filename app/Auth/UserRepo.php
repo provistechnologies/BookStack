@@ -62,6 +62,17 @@ class UserRepo
         $user = new User();
         $user->name = $data['name'];
         $user->email = $data['email'];
+        $user->designation = $data['designation'];
+        $user->joining_date = $data['joining_date'];
+        $user->birth_date = $data['birth_date'];
+        $user->qualification = $data['qualification'];
+        $user->contact = $data['contact'];
+        $user->present_address = $data['present_address'];
+        $user->permanent_address = $data['permanent_address'];
+        $user->first_ref_name = $data['first_ref_name'];
+        $user->first_ref_contact = $data['first_ref_contact'];
+        $user->second_ref_name = $data['second_ref_name'];
+        $user->second_ref_contact = $data['second_ref_contact'];
         $user->password = Hash::make(empty($data['password']) ? Str::random(32) : $data['password']);
         $user->email_confirmed = $emailConfirmed;
         $user->external_auth_id = $data['external_auth_id'] ?? '';
@@ -116,6 +127,50 @@ class UserRepo
 
         if (!empty($data['email']) && $manageUsersAllowed) {
             $user->email = $data['email'];
+        }
+
+        if (!empty($data['designation']) && $manageUsersAllowed) {
+            $user->designation = $data['designation'];
+        }
+
+        if (!empty($data['joining_date']) && $manageUsersAllowed) {
+            $user->joining_date = $data['joining_date'];
+        }
+
+        if (!empty($data['birth_date']) && $manageUsersAllowed) {
+            $user->birth_date = $data['birth_date'];
+        }
+
+        if (!empty($data['qualification']) && $manageUsersAllowed) {
+            $user->qualification = $data['qualification'];
+        }
+
+        if (!empty($data['contact']) && $manageUsersAllowed) {
+            $user->contact = $data['contact'];
+        }
+
+        if (!empty($data['present_address']) && $manageUsersAllowed) {
+            $user->present_address = $data['present_address'];
+        }
+
+        if (!empty($data['permanent_address']) && $manageUsersAllowed) {
+            $user->permanent_address = $data['permanent_address'];
+        }
+
+        if (!empty($data['first_ref_name']) && $manageUsersAllowed) {
+            $user->first_ref_name = $data['first_ref_name'];
+        }
+
+        if (!empty($data['first_ref_contact']) && $manageUsersAllowed) {
+            $user->first_ref_contact = $data['first_ref_contact'];
+        }
+
+        if (!empty($data['second_ref_name']) && $manageUsersAllowed) {
+            $user->second_ref_name = $data['second_ref_name'];
+        }
+
+        if (!empty($data['second_ref_contact']) && $manageUsersAllowed) {
+            $user->second_ref_contact = $data['second_ref_contact'];
         }
 
         if (!empty($data['external_auth_id']) && $manageUsersAllowed) {

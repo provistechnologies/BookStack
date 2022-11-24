@@ -62,7 +62,21 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      *
      * @var array
      */
-    protected $fillable = ['name', 'email'];
+    protected $fillable = [
+        'name',
+        'email', 
+        'designation', 
+        'joining_date', 
+        'birth_date',
+        'qualification', 
+        'contact', 
+        'present_address', 
+        'permanent_address', 
+        'first_ref_name', 
+        'first_ref_contact', 
+        'second_ref_name', 
+        'second_ref_contact'
+    ];
 
     protected $casts = ['last_activity_at' => 'datetime'];
 
@@ -73,7 +87,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      */
     protected $hidden = [
         'password', 'remember_token', 'system_name', 'email_confirmed', 'external_auth_id', 'email',
-        'created_at', 'updated_at', 'image_id', 'roles', 'avatar', 'user_id',
+        'created_at', 'updated_at', 'image_id', 'roles', 'avatar', 'user_id'
     ];
 
     /**
