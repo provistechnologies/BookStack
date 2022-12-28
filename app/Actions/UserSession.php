@@ -13,6 +13,8 @@ class UserSession extends Model
     protected $table = 'tbl_sessions';
     protected $fillable = [
         'user_id',
+        'status',
+        'comments',
         'session_start_time',
         'session_end_time',
         'session_date',

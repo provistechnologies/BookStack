@@ -45,6 +45,40 @@ class UserSessionRepo
         $screenshotData['sessionUser'] = $this->userSession->where('id', $session_id)->with('userSession')->first();
         return $screenshotData;
     }
+    
+    public function getTasksBySessionId($session_id)
+    {
+        $taskData = [];
+        $tasks = [];
+        $taskData['sessionUser'] = $this->userSession->where('id', $session_id)->with('userSession')->first();
+        $last = $taskData['sessionUser']->session_start_time;
+        $screenshots = $this->screenshot->where('session_id', $session_id)->orderBy('screenshot_time', 'asc')->get();
+        if (count($screenshots) > 0) {
+            foreach($screenshots as $screenshot) {
+                $start = Carbon::parse($last);
+                $end = Carbon::parse($screenshot->screenshot_time);
+                $seconds = $start->diffInSeconds($end);
+                $minutes = $seconds / 60;
+                if (isset($tasks[$screenshot->key_count])) {
+                    $min = $tasks[$screenshot->key_count] + $minutes;
+                    $tasks[$screenshot->key_count] = $min;
+                } else {
+                    $tasks[$screenshot->key_count] = $minutes;
+                }
+                $last = $screenshot->screenshot_time;
+            }
+        }
+        $taskData['sessionTasks'] = $tasks;
+        return $taskData;
+    }
+
+    public function setStatus($session_id, $request)
+    {
+        $session = $this->userSession->where('id', $session_id)->with('userSession')->first();
+        $session->status = $request->status;
+        $session->comments = $request->comments;
+        $session->save();
+    }
 
     public function getSession($authUser_id, $current_date)
     {

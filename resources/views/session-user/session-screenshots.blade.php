@@ -32,8 +32,8 @@
                                   <div id="js-lightgallery">
                                     @if (count($sessionScreenshots) > 0)
                                     @foreach($sessionScreenshots as $index => $screenshotData)
-                                      <a class="" href="{{asset($screenshotData->screenshot)}}" data-sub-html="{{$screenshotData->screenshot_time}} <br>Key Count : {{$screenshotData->key_count}}">
-                                          <img class="img-responsive" src="{{asset($screenshotData->screenshot)}}" alt="{{$screenshotData->screenshot_time}} (Key Count : {{$screenshotData->key_count}})">
+                                      <a class="" href="{{asset($screenshotData->screenshot)}}" data-sub-html="{{$screenshotData->screenshot_time}} <br>Memo : {{$screenshotData->key_count}}">
+                                          <img class="img-responsive" src="{{asset($screenshotData->screenshot)}}" alt="{{$screenshotData->screenshot_time}} (Memo : {{$screenshotData->key_count}})">
                                       </a>
                                     @endforeach
                                     @else

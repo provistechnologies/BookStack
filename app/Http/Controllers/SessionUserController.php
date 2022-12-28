@@ -4,6 +4,7 @@ namespace BookStack\Http\Controllers;
 
 use BookStack\Actions\UserSessionRepo;
 use Illuminate\Http\Request;
+
 class SessionUserController extends Controller
 {
     protected $UserSessionRepo;
@@ -47,5 +48,22 @@ class SessionUserController extends Controller
             'sessionScreenshots' => $screenshotData['sessionScreenshots'],
             'sessionUser' => $screenshotData['sessionUser'],
             ]);
+    }
+
+    public function sessionTask($session_id = 0)
+    {   
+        $taskData = $this->UserSessionRepo->getTasksBySessionId($session_id);
+
+        return view('session-user.session-tasks', [
+            'sessionTasks' => $taskData['sessionTasks'],
+            'sessionUser' => $taskData['sessionUser'],
+        ]);
+    }
+
+    public function sessionStatusUpdate(Request $request, $session_id = 0)
+    {   
+        $this->UserSessionRepo->setStatus($session_id, $request);
+        $this->showSuccessNotification('Session status successfully updated');
+        return redirect('/session-tasks/'.$session_id);
     }
 }

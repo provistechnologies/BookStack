@@ -14,7 +14,9 @@
                       <select name="user_id">
                         <option value="">Select User</option>
                         @foreach ($users as $user)
+                          @if(isset($user->userSession))
                           <option value="{{$user->userSession->id}}" {{ !empty($filterData) ? $filterData->user_id == $user->userSession->id ? 'selected' : '' : ''}}>{{$user->userSession->name}}</option>
+                          @endif
                         @endforeach
                       </select>
                     </div>
@@ -91,18 +93,21 @@
                                     {{$session->session_start_time}}
                                    </th>
                                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                                     {{$session->userSession->name}}
+                                     {{isset($session->userSession) ? $session->userSession->name : 'N/A'}}
                                    </th>
                                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                                     {{$session->userSession->email}}
+                                     {{isset($session->userSession) ? $session->userSession->email : 'N/A'}}
                                    </th>
                                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                      {{$session->session_end_time}}
                                    </th>
                                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                                     <button>
-                                        <a href="{{ url('/session-screenshots/'.$session->id)  }}" class="card-footer-link">View Screenshots</a>
-                                     </button>
+                                    <button>
+                                      <a href="{{ url('/session-screenshots/'.$session->id)  }}" class="card-footer-link">View Screenshots</a>
+                                    </button>
+                                    <button>
+                                      <a href="{{ url('/session-tasks/'.$session->id)  }}" class="card-footer-link">View Tasks</a>
+                                    </button>
                                    </th>
                                  </tr>
                               @endforeach
