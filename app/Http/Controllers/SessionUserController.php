@@ -2,6 +2,7 @@
 
 namespace BookStack\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use BookStack\Actions\UserSessionRepo;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,7 @@ class SessionUserController extends Controller
     }
 
     public function index(Request $request)
-    {   
+    {
         $session_date_order = $request->get('col_name') == 'session_date' ? $request->get('order', 'desc') : 'desc';
         $start_time_order = $request->get('col_name') == 'session_start_time' ? $request->get('order', 'desc') : 'desc';
         $name_order = $request->get('col_name') == 'name' ? $request->get('order', 'desc') : 'desc';
@@ -23,12 +24,8 @@ class SessionUserController extends Controller
         $end_time_order = $request->get('col_name') == 'session_end_time' ? $request->get('order', 'desc') : 'desc';
 
         $users = $this->UserSessionRepo->getUsers();
-        if (count($request->all()) > 0) {
-            $allSessions = $this->UserSessionRepo->getSessionByFilters($request);
-        } else {
-            $allSessions = $this->UserSessionRepo->getAllSession();
-            $request = [];
-        }
+        $allSessions = $this->UserSessionRepo->getSessionByFilters($request);
+
         return view('session-user.index', [
             'allSessions' => $allSessions,
             'users' => $users,

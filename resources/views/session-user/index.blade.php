@@ -8,18 +8,20 @@
             <div class="py-s">
               <form id="filter-form" action="{{ url("/tracker-sessions") }}" method="get">
                 <div class="grid half">
-                  <div class="grid third">
+                  <div class="{{user()->hasRole(1) == true ? 'grid third' : 'grid half'}}">
+                    @if (user()->hasRole(1) == true)
                     <div class="">
                       <label for="name">Select user</label>
                       <select name="user_id">
                         <option value="">Select User</option>
                         @foreach ($users as $user)
-                          @if(isset($user->userSession))
-                          <option value="{{$user->userSession->id}}" {{ !empty($filterData) ? $filterData->user_id == $user->userSession->id ? 'selected' : '' : ''}}>{{$user->userSession->name}}</option>
-                          @endif
+                        @if(isset($user->userSession))
+                        <option value="{{$user->userSession->id}}" {{ !empty($filterData) ? $filterData->user_id == $user->userSession->id ? 'selected' : '' : ''}}>{{$user->userSession->name}}</option>
+                        @endif
                         @endforeach
                       </select>
                     </div>
+                    @endif
                     <div class="basis-1/6">
                       <label for="fromDate">From Date : </label>
                       <input type="date" id="fromDate" name="from_date" value="{{ !empty($filterData) ? $filterData->from_date ? $filterData->from_date : '' : ''}}">
@@ -31,10 +33,12 @@
                   </div>
                   
                   <div class="grid third">
+                    @if (user()->hasRole(1) == true)
                     <div class="basis-1/6">
                       <label for="">Search by keyword</label>
                       <input type="text" name="search_keyword" placeholder="Search" value="{{ !empty($filterData) ? $filterData->search_keyword ? $filterData->search_keyword : '' : ''}}">
                     </div>
+                    @endif
 
                     <div class=" pt-m">
                       <input type="submit" class="button text-white px-lg" value="Search">
@@ -122,7 +126,7 @@
                           </tbody>
                         </table>
                         <div class="text-right">
-                          {!! $allSessions->links() !!}
+                          {!! $allSessions->withQueryString()->links() !!}
                         </div>
                       </div>
                     </div>

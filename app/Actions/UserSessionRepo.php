@@ -3,7 +3,6 @@
 namespace BookStack\Actions;
 use Carbon\Carbon;
 use BookStack\Uploads\ScreenshotRepo;
-
 /**
  * Class CommentRepo.
  */
@@ -27,15 +26,6 @@ class UserSessionRepo
     public function getUsers()
     {
         return $this->userSession->with('userSession')->groupBy('user_id')->get();
-    }
-
-    /**
-     * Get all session users.
-     */
-
-    public function getAllSession()
-    {
-        return $this->userSession->with('userSession')->where('created_at', '>=', Carbon::now()->subDays(30)->endOfDay())->orderBy('id', 'desc')->paginate(15);
     }
 
     public function getScreenshotsBySessionId($session_id)
@@ -107,32 +97,47 @@ class UserSessionRepo
 
     public function getSessionByFilters($request_data) {
         $filterSessions = $this->userSession->query();
+
+        $filter_flag = false;
+        if (user()->hasRole(5)) {
+            $filterSessions->where('user_id', user()->id);
+        }
         if ($request_data->has('user_id') && !empty($request_data->user_id)) {
             $filterSessions->where('user_id', intval($request_data->user_id));
+            $filter_flag = true;
         }
         if ($request_data->has('from_date') && !empty($request_data->from_date)) {
             $filterSessions->where('created_at','>=', $request_data->from_date);
+            $filter_flag = true;
         }
         if ($request_data->has('to_date') && !empty($request_data->to_date)) {
             $filterSessions->where('created_at','<=', $request_data->to_date);
+            $filter_flag = true;
         }
         if ($request_data->has('search_keyword') && !empty($request_data->search_keyword)) {
             $filterSessions->whereRelation('userSession', function ($query) use ($request_data) {
                 $query->where('name', 'LIKE', '%'. $request_data->search_keyword .'%')
                 ->orWhere('email', 'LIKE', '%'. $request_data->search_keyword .'%');
             });
+            $filter_flag = true;
         }
         if (!empty($request_data->col_name) && !empty($request_data->order) ) {
             if ($request_data->col_name == 'name' || $request_data->col_name == 'email') {
-                return $filterSessions->with(['userSession' => function ($q) use ($request_data){
+                 $filterSessions->with(['userSession' => function ($q) use ($request_data){
                         $q->orderBy($request_data->col_name, $request_data->order);
-                    }])->paginate(15);
+                    }]);
             } else {
-                return $filterSessions->orderBy($request_data->col_name, $request_data->order)->with('userSession')->paginate(15)->withQueryString();
+                 $filterSessions->orderBy($request_data->col_name, $request_data->order)->with('userSession')->paginate(15);
             }
         } else {
-            return $filterSessions->orderBy('id', 'desc')->with('userSession')->paginate(15)->withQueryString();
+            if ($filter_flag == false) {
+                 $filterSessions->where('created_at', '>=', Carbon::now()->subDays(30)->endOfDay())->orderBy('id', 'desc');
+                } else {                
+                 $filterSessions->orderBy('id', 'desc')->with('userSession');
+            }
         }
+
+        return $filterSessions->paginate(15);
     }
 
 }
