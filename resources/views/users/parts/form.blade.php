@@ -22,6 +22,54 @@
                 @include('form.text', ['name' => 'email', 'disabled' => !userCan('users-manage')])
             @endif
         </div>
+
+        <div>
+            <label for="designation">{{ trans('auth.designation') }}</label>
+            @include('form.text', ['name' => 'designation'])
+        </div>
+        <div>
+            <label for="joining_date">{{ trans('auth.joining_date') }}</label>
+            @include('form.date', ['name' => 'joining_date'])
+        </div>
+        <div>
+            <label for="birth_date">{{ trans('auth.birth_date') }}</label>
+            @include('form.date', ['name' => 'birth_date'])
+        </div>
+        <div>
+            <label for="qualification">{{ trans('auth.qualification') }}</label>
+            @include('form.text', ['name' => 'qualification'])
+        </div>
+        <div>
+            <label for="contact">{{ trans('auth.contact') }}</label>
+            @include('form.text', ['name' => 'contact'])
+        </div>
+        <div>
+            <label for="present_address">{{ trans('auth.present_address') }}</label>
+            @include('form.textarea', ['name' => 'present_address'])
+        </div>
+        <div>
+            <label for="permanent_address">{{ trans('auth.permanent_address') }}</label>
+            @include('form.textarea', ['name' => 'permanent_address'])
+        </div>
+    </div>
+    <div class="grid half mt-m gap-xl">
+        <div>
+            <label for="first_ref_name">{{ trans('auth.first_ref_name') }}</label>
+            @include('form.text', ['name' => 'first_ref_name'])
+        </div>
+        <div>
+            <label for="first_ref_contact">{{ trans('auth.first_ref_contact') }}</label>
+            @include('form.text', ['name' => 'first_ref_contact'])
+        </div>
+        <div>
+            <label for="second_ref_name">{{ trans('auth.second_ref_name') }}</label>
+            @include('form.text', ['name' => 'second_ref_name'])
+        </div>
+        <div>
+            <label for="second_ref_contact">{{ trans('auth.second_ref_contact') }}</label>
+            @include('form.text', ['name' => 'second_ref_contact'])
+        </div>
+        
     </div>
 </div>
 

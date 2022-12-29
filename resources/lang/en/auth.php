@@ -112,4 +112,16 @@ return [
     'mfa_verify_backup_code_enter_here' => 'Enter backup code here',
     'mfa_verify_totp_desc' => 'Enter the code, generated using your mobile app, below:',
     'mfa_setup_login_notification' => 'Multi-factor method configured, Please now login again using the configured method.',
+    // Add user
+    'designation' => 'Designation',
+    'joining_date' => 'Date of joining',
+    'birth_date' => 'Date of birth',
+    'qualification' => 'Qualification',
+    'contact' => 'Contact',
+    'present_address' => 'Present Address',
+    'permanent_address' => 'Permanent Address',
+    'first_ref_name' => 'Name of first reference',
+    'first_ref_contact' => 'Contact of first reference',
+    'second_ref_name' => 'Name of second reference',
+    'second_ref_contact' => 'Contact of second reference',
 ];
