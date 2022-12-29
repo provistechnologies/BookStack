@@ -220,6 +220,22 @@
                     @include('settings.roles.parts.checkbox', ['permission' => 'comment-delete-all', 'label' => trans('settings.role_all')])
                 </td>
             </tr>
+            
+            <tr>
+                <td>
+                    <div>{{ trans('entities.session') }}</div>
+                    <a href="#" refs="permissions-table@toggle-row" class="text-small text-primary">{{ trans('common.toggle_all') }}</a>
+                </td>
+                <td></td>
+                <td>
+                    @include('settings.roles.parts.checkbox', ['permission' => 'session-view-own', 'label' => trans('settings.role_own')])
+                    <br>
+                    @include('settings.roles.parts.checkbox', ['permission' => 'session-view-all', 'label' => trans('settings.role_all')])
+                </td>
+                <td>
+                </td>
+                <td></td>
+            </tr>
         </table>
 
         <div>
