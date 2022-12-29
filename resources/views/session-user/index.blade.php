@@ -8,8 +8,8 @@
             <div class="py-s">
               <form id="filter-form" action="{{ url("/tracker-sessions") }}" method="get">
                 <div class="grid half">
-                  <div class="{{user()->hasRole(1) == true ? 'grid third' : 'grid half'}}">
-                    @if (user()->hasRole(1) == true)
+                  <div class="{{user()->can('session-view-all') ? 'grid third' : 'grid half'}}">
+                    @if (user()->can('session-view-all'))
                     <div class="">
                       <label for="name">Select user</label>
                       <select name="user_id">
@@ -33,7 +33,7 @@
                   </div>
                   
                   <div class="grid third">
-                    @if (user()->hasRole(1) == true)
+                    @if (user()->can('session-view-all'))
                     <div class="basis-1/6">
                       <label for="">Search by keyword</label>
                       <input type="text" name="search_keyword" placeholder="Search" value="{{ !empty($filterData) ? $filterData->search_keyword ? $filterData->search_keyword : '' : ''}}">

@@ -99,7 +99,7 @@ class UserSessionRepo
         $filterSessions = $this->userSession->query();
 
         $filter_flag = false;
-        if (user()->hasRole(5)) {
+        if (user()->can('session-view-own') && !user()->can('session-view-all')) {
             $filterSessions->where('user_id', user()->id);
         }
         if ($request_data->has('user_id') && !empty($request_data->user_id)) {
