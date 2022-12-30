@@ -9,3 +9,8 @@
         --color-page-draft: {{ setting('page-draft-color')}};
     }
 </style>
+<style>
+    .input-date {
+        width: 100% !important
+    }
+</style>

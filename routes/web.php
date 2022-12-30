@@ -59,6 +59,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/tracker-sessions/', [SessionUserController::class, 'index']);
     // Route::post('/tracker-sessions/', [SessionUserController::class, 'index']);
     Route::get('/session-screenshots/{id}', [SessionUserController::class, 'sessionScreenshot']);
+    Route::get('/session-tasks/', [SessionUserController::class, 'allSessionTask']);
     Route::get('/session-tasks/{id}', [SessionUserController::class, 'sessionTask']);
     Route::post('/session-status-update/{id}', [SessionUserController::class, 'sessionStatusUpdate']);
 

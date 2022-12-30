@@ -63,4 +63,18 @@ class SessionUserController extends Controller
         $this->showSuccessNotification('Session status successfully updated');
         return redirect('/session-tasks/'.$session_id);
     }
+
+    public function allSessionTask(Request $request)
+    {
+        if (!empty($request->user_id) || !empty($request->from_date) || !empty($request->to_date)){
+            $allSessions = $this->UserSessionRepo->getSessionByFilters($request);
+        } else {
+            $allSessions = [];
+        }
+        return view('session-user.session-all-tasks', [
+            'allSessions' => $allSessions,
+            'usersRepo' => $this->UserSessionRepo,
+            'filterData' => $request,
+          ]);
+    }
 }

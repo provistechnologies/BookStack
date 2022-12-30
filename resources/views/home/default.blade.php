@@ -82,6 +82,7 @@
                     <div class="card mb-xl">
                         <h3 class="card-title">All Tracker Sessions</h3>
                         <a href="{{ url('/tracker-sessions')  }}" class="card-footer-link">View All Tracker Session</a>
+                        <a href="{{ url('/session-tasks')  }}" class="card-footer-link">View All session Tasks</a>
                     </div>
                 </div>
             </div>

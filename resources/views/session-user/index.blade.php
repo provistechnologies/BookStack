@@ -24,11 +24,11 @@
                     @endif
                     <div class="basis-1/6">
                       <label for="fromDate">From Date : </label>
-                      <input type="date" id="fromDate" name="from_date" value="{{ !empty($filterData) ? $filterData->from_date ? $filterData->from_date : '' : ''}}">
+                      <input type="date" class="input-date" id="fromDate" name="from_date" value="{{ !empty($filterData) ? $filterData->from_date ? $filterData->from_date : '' : ''}}">
                     </div>
                     <div class="basis-1/6">
                       <label for="toDate">To Date : </label>
-                      <input type="date" id="toDate" name="to_date" value="{{ !empty($filterData) ? $filterData->to_date ? $filterData->to_date : '' : ''}}" max="" min="">
+                      <input type="date" class="input-date" id="toDate" name="to_date" value="{{ !empty($filterData) ? $filterData->to_date ? $filterData->to_date : '' : ''}}" max="" min="">
                     </div>
                   </div>
                   
@@ -45,13 +45,12 @@
                     </div>
                     <input id="column-order" type="hidden" name="order" value="">
                     <input id="column-name" type="hidden" name="col_name" value="">
-                    <div class="form-group text-right pt-m">
-                      <a href="{{ URL::previous() }}" class="button text-white px-lg">Go Back</a>
-                    </div>
+                    @if (!empty($filterData->user_id) || !empty($filterData->from_date) || !empty($filterData->to_date) || !empty($filterData->search_keyword))
+                      <div class="form-group text-right pt-m">
+                        <a href="{{ url('/tracker-sessions')  }}" class="button outline text-white px-lg">Clear filter</a>
+                      </div>
+                    @endif
                   </div>
-                </div>
-                <div>
-                  <a href="{{ url('/tracker-sessions')  }}" class="card-footer-link">clear Filter</a>
                 </div>
                 <div class="flex flex-col">
                   <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
