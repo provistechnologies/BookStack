@@ -65,18 +65,18 @@
                             
                           </thead>
                           @if(count($allSessions) > 0)
-                          @php
-                              $totalMins = 0;
-                            //   $sessionTasks = $usersRepo->getTasksBySessionId(strval($session->id));
-                          @endphp
+                          
                               @foreach($allSessions as $index => $session)
+                              @php
+                              $totalMins = 0;
+                          @endphp
                               @php
                                   $sessionTasks = $usersRepo->getTasksBySessionId(strval($session->id));
                               @endphp
                               @foreach ($sessionTasks['sessionTasks'] as $task => $minutes)
                                  <tr>
                                      @if ($loop->index == 0)
-                                       <th scope="col" rowspan="{{count($sessionTasks['sessionTasks'])}}" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                       <th scope="col" rowspan="{{count($sessionTasks['sessionTasks'])+1}}" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                        {{$session->session_date}}
                                        </th>  
                                      @endif
@@ -93,25 +93,23 @@
                                         @endphp
                                         {{$hours.'H '.$minutes.'M'}}
                                    </th>
-                                   
                                  </tr>
                                  @endforeach
+                                 @if($totalMins > 0)
+                                      <tr>
+                                          <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-right">
+                                              <strong>Total Time</strong>
+                                          </th>
+                                          <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-center">
+                                              @php
+                                                  $hours = floor($totalMins / 60);
+                                                  $minutes = $totalMins % 60;
+                                              @endphp
+                                              {{$hours.'H '.$minutes.'M'}}
+                                          </th>
+                                      </tr>
+                                  @endif
                               @endforeach
-                              
-                              @if($totalMins > 0)
-                                  <tr>
-                                      <th scope="col" colspan="2" class="text-sm font-medium text-gray-900 px-6 py-4 text-center">
-                                          <strong>Total Time</strong>
-                                      </th>
-                                      <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-center">
-                                          @php
-                                              $hours = floor($totalMins / 60);
-                                              $minutes = $totalMins % 60;
-                                          @endphp
-                                          {{$hours.'H '.$minutes.'M'}}
-                                      </th>
-                                  </tr>
-                              @endif
                           @else
                                <tr>
                                  <th scope="col" colspan="3" class="text-sm font-medium text-gray-900 px-6 py-4 text-center">
