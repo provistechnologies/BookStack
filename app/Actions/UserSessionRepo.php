@@ -95,7 +95,7 @@ class UserSessionRepo
         $session->fill($end_session)->save();
     }
 
-    public function getSessionByFilters($request_data) {
+    public function getSessionByFilters($request_data, $paginate = true) {
         $filterSessions = $this->userSession->query();
 
         $filter_flag = false;
@@ -136,8 +136,10 @@ class UserSessionRepo
                  $filterSessions->orderBy('id', 'desc')->with('userSession');
             }
         }
-
-        return $filterSessions->paginate(15);
+        if ($paginate) {
+            return $filterSessions->paginate(1);   
+        }
+        return $filterSessions->get();
     }
 
 }

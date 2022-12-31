@@ -83,7 +83,7 @@ class SessionUserController extends Controller
     public function tasksExport(Request $request)
     {
         if (!empty($request->user_id) || !empty($request->from_date) || !empty($request->to_date) || user()->can('session-view-own') && !user()->can('session-view-all')){
-            $allSessions = $this->UserSessionRepo->getSessionByFilters($request);
+            $allSessions = $this->UserSessionRepo->getSessionByFilters($request ,false);
         } else {
             $allSessions = [];
         }
