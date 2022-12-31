@@ -107,11 +107,11 @@ class UserSessionRepo
             $filter_flag = true;
         }
         if ($request_data->has('from_date') && !empty($request_data->from_date)) {
-            $filterSessions->where('created_at','>=', $request_data->from_date);
+            $filterSessions->whereDate('created_at','>=', $request_data->from_date);
             $filter_flag = true;
         }
         if ($request_data->has('to_date') && !empty($request_data->to_date)) {
-            $filterSessions->where('created_at','<=', $request_data->to_date);
+            $filterSessions->whereDate('created_at','<=', $request_data->to_date);
             $filter_flag = true;
         }
         if ($request_data->has('search_keyword') && !empty($request_data->search_keyword)) {
@@ -131,7 +131,7 @@ class UserSessionRepo
             }
         } else {
             if ($filter_flag == false) {
-                 $filterSessions->where('created_at', '>=', Carbon::now()->subDays(30)->endOfDay())->orderBy('id', 'desc');
+                 $filterSessions->whereDate('created_at', '>=', Carbon::now()->subDays(30)->endOfDay())->orderBy('id', 'desc');
                 } else {                
                  $filterSessions->orderBy('id', 'desc')->with('userSession');
             }

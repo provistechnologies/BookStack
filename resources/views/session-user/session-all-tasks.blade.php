@@ -40,11 +40,6 @@
                         <a href="{{ url('/session-tasks')  }}" class="button outline text-white px-lg">Clear filter</a>
                       @endif
                     </div>
-                    {{-- @if (!empty($filterData->user_id) || !empty($filterData->from_date) || !empty($filterData->to_date))
-                    <div class="form-group pt-m">
-                      <a href="{{ url('/session-tasks')  }}" class="button outline text-white px-lg">Clear filter</a>
-                    </div>
-                    @endif --}}
                   </div>
                 </div>
 
