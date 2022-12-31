@@ -10,7 +10,7 @@
     }
 </style>
 <style>
-    .input-date {
+    .input-box-full-width {
         width: 100% !important
     }
 </style>

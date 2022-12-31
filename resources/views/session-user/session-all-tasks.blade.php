@@ -24,24 +24,27 @@
                     @endif
                     <div class="basis-1/6">
                       <label for="fromDate">From Date : </label>
-                      <input type="date" class="input-date" id="fromDate" name="from_date" value="{{ !empty($filterData) ? $filterData->from_date ? $filterData->from_date : '' : ''}}">
+                      <input type="date" class="input-box-full-width" id="fromDate" name="from_date" value="{{ !empty($filterData) ? $filterData->from_date ? $filterData->from_date : '' : ''}}">
                     </div>
                     <div class="basis-1/6">
                       <label for="toDate">To Date : </label>
-                      <input type="date" class="input-date" id="toDate" name="to_date" value="{{ !empty($filterData) ? $filterData->to_date ? $filterData->to_date : '' : ''}}" max="" min="">
+                      <input type="date" class="input-box-full-width" id="toDate" name="to_date" value="{{ !empty($filterData) ? $filterData->to_date ? $filterData->to_date : '' : ''}}" max="" min="">
                     </div>
                   </div>
                   
-                  <div class="grid third">
+                  <div class="grid half">
 
-                    <div class=" pt-m">
+                    <div class=" block inline mr-xs pt-m">
                       <input type="submit" class="button text-white px-lg" value="Search">
+                      @if (!empty($filterData->user_id) || !empty($filterData->from_date) || !empty($filterData->to_date))
+                        <a href="{{ url('/session-tasks')  }}" class="button outline text-white px-lg">Clear filter</a>
+                      @endif
                     </div>
-                    @if (!empty($filterData->user_id) || !empty($filterData->from_date) || !empty($filterData->to_date))
-                    <div class="form-group text-right pt-m">
+                    {{-- @if (!empty($filterData->user_id) || !empty($filterData->from_date) || !empty($filterData->to_date))
+                    <div class="form-group pt-m">
                       <a href="{{ url('/session-tasks')  }}" class="button outline text-white px-lg">Clear filter</a>
                     </div>
-                    @endif
+                    @endif --}}
                   </div>
                 </div>
 
@@ -49,7 +52,7 @@
                   <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
                       <div class="overflow-hidden">
-                        <table class="min-w-full">
+                        <table class="table min-w-full">
                           <thead class="border-b">
                             <tr>
                               <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
@@ -76,15 +79,15 @@
                               @foreach ($sessionTasks['sessionTasks'] as $task => $minutes)
                                  <tr>
                                      @if ($loop->index == 0)
-                                       <th scope="col" rowspan="{{count($sessionTasks['sessionTasks'])+1}}" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                       <td scope="col" rowspan="{{count($sessionTasks['sessionTasks'])+1}}" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                        {{$session->session_date}}
-                                       </th>  
+                                       </td>  
                                      @endif
                                    
-                                   <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                   <td scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                       {{$task}}
-                                   </th>
-                                   <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                   </td>
+                                   <td scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                        @php
                                             // $totalMins = 0;
                                             $totalMins += $minutes;
@@ -92,21 +95,21 @@
                                             $minutes = $minutes % 60;
                                         @endphp
                                         {{$hours.'H '.$minutes.'M'}}
-                                   </th>
+                                   </td>
                                  </tr>
                                  @endforeach
                                  @if($totalMins > 0)
                                       <tr>
-                                          <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-right">
+                                          <td scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-right">
                                               <strong>Total Time</strong>
-                                          </th>
-                                          <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-center">
+                                          </td>
+                                          <td scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                               @php
                                                   $hours = floor($totalMins / 60);
                                                   $minutes = $totalMins % 60;
                                               @endphp
                                               {{$hours.'H '.$minutes.'M'}}
-                                          </th>
+                                          </td>
                                       </tr>
                                   @endif
                               @endforeach

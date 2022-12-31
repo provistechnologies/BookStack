@@ -24,39 +24,37 @@
                     @endif
                     <div class="basis-1/6">
                       <label for="fromDate">From Date : </label>
-                      <input type="date" class="input-date" id="fromDate" name="from_date" value="{{ !empty($filterData) ? $filterData->from_date ? $filterData->from_date : '' : ''}}">
+                      <input type="date" class="input-box-full-width" id="fromDate" name="from_date" value="{{ !empty($filterData) ? $filterData->from_date ? $filterData->from_date : '' : ''}}">
                     </div>
                     <div class="basis-1/6">
                       <label for="toDate">To Date : </label>
-                      <input type="date" class="input-date" id="toDate" name="to_date" value="{{ !empty($filterData) ? $filterData->to_date ? $filterData->to_date : '' : ''}}" max="" min="">
+                      <input type="date" class="input-box-full-width" id="toDate" name="to_date" value="{{ !empty($filterData) ? $filterData->to_date ? $filterData->to_date : '' : ''}}" max="" min="">
                     </div>
                   </div>
                   
-                  <div class="grid third">
+                  <div class="grid half">
                     @if (user()->can('session-view-all'))
                     <div class="basis-1/6">
                       <label for="">Search by keyword</label>
-                      <input type="text" name="search_keyword" placeholder="Search" value="{{ !empty($filterData) ? $filterData->search_keyword ? $filterData->search_keyword : '' : ''}}">
+                      <input type="text" class="input-box-full-width" name="search_keyword" placeholder="Search" value="{{ !empty($filterData) ? $filterData->search_keyword ? $filterData->search_keyword : '' : ''}}">
                     </div>
                     @endif
 
-                    <div class=" pt-m">
+                    <div class="block inline mr-xs pt-m">
                       <input type="submit" class="button text-white px-lg" value="Search">
+                      @if (!empty($filterData->user_id) || !empty($filterData->from_date) || !empty($filterData->to_date) || !empty($filterData->search_keyword))
+                        <a href="{{ url('/tracker-sessions')  }}" class="button outline text-white px-lg">Clear filter</a>
+                      @endif
                     </div>
                     <input id="column-order" type="hidden" name="order" value="">
                     <input id="column-name" type="hidden" name="col_name" value="">
-                    @if (!empty($filterData->user_id) || !empty($filterData->from_date) || !empty($filterData->to_date) || !empty($filterData->search_keyword))
-                      <div class="form-group text-right pt-m">
-                        <a href="{{ url('/tracker-sessions')  }}" class="button outline text-white px-lg">Clear filter</a>
-                      </div>
-                    @endif
                   </div>
                 </div>
                 <div class="flex flex-col">
                   <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
                       <div class="overflow-hidden">
-                        <table class="min-w-full">
+                        <table class="table min-w-full">
                           <thead class="border-b">
                             <tr>
                               <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
@@ -86,32 +84,32 @@
                           @if(count($allSessions) > 0)
                               @foreach($allSessions as $index => $session)
                                  <tr>
-                                   <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                   <td scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                        {{$index+1}}
-                                    </th>
-                                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                    </td>
+                                    <td scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                        {{$session->session_date}}
-                                   </th>
-                                   <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                   </td>
+                                   <td scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                     {{$session->session_start_time}}
-                                   </th>
-                                   <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                   </td>
+                                   <td scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                      {{isset($session->userSession) ? $session->userSession->name : 'N/A'}}
-                                   </th>
+                                   </td>
                                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                      {{isset($session->userSession) ? $session->userSession->email : 'N/A'}}
-                                   </th>
-                                   <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                   </td>
+                                   <td scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                      {{$session->session_end_time}}
-                                   </th>
-                                   <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                   </td>
+                                   <td scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                     <button>
                                       <a href="{{ url('/session-screenshots/'.$session->id)  }}" class="card-footer-link">View Screenshots</a>
                                     </button>
                                     <button>
                                       <a href="{{ url('/session-tasks/'.$session->id)  }}" class="card-footer-link">View Tasks</a>
                                     </button>
-                                   </th>
+                                   </td>
                                  </tr>
                               @endforeach
                           @else
