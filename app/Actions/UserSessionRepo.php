@@ -137,7 +137,7 @@ class UserSessionRepo
             }
         }
         if ($paginate) {
-            return $filterSessions->paginate(1);   
+            return $filterSessions->paginate(15);   
         }
         return $filterSessions->get();
     }
