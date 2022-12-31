@@ -2,8 +2,10 @@
 
 namespace BookStack\Http\Controllers;
 
-use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
+use Carbon\Carbon;
 use BookStack\Actions\UserSessionRepo;
+use BookStack\Exports\SessionsTaskExport;
 use Illuminate\Http\Request;
 
 class SessionUserController extends Controller
@@ -76,5 +78,17 @@ class SessionUserController extends Controller
             'usersRepo' => $this->UserSessionRepo,
             'filterData' => $request,
           ]);
+    }
+
+    public function tasksExport(Request $request)
+    {
+        if (!empty($request->user_id) || !empty($request->from_date) || !empty($request->to_date) || user()->can('session-view-own') && !user()->can('session-view-all')){
+            $allSessions = $this->UserSessionRepo->getSessionByFilters($request);
+        } else {
+            $allSessions = [];
+        }
+        $currentDate =  Carbon::now()->format('d_m_Y_h_i_s');
+        $excelName = 'session_tasks_'.$currentDate.'.xlsx';
+        return Excel::download(new SessionsTaskExport($allSessions, $this->UserSessionRepo), $excelName);
     }
 }

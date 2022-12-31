@@ -40,6 +40,17 @@
                         <a href="{{ url('/session-tasks')  }}" class="button outline text-white px-lg">Clear filter</a>
                       @endif
                     </div>
+
+                    <div class="pt-m text-right">
+                      @if (count($allSessions) > 0 && user()->can('session-view-all'))
+                        <a href="{{ route('sessions-tasks-export', [
+                          'user_id' => $filterData->user_id,
+                          'from_date' => $filterData->from_date,
+                          'to_date' => $filterData->to_date,
+                        ])  }}"
+                         class="button text-white px-lg">Export Tasks</a>
+                      @endif
+                    </div>
                   </div>
                 </div>
 

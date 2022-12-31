@@ -139,6 +139,9 @@ return [
         BookStack\Providers\TranslationServiceProvider::class,
         BookStack\Providers\ValidationRuleServiceProvider::class,
         BookStack\Providers\ViewTweaksServiceProvider::class,
+
+        // Excel export service peovider
+        Maatwebsite\Excel\ExcelServiceProvider::class,
     ],
 
     /*
@@ -202,6 +205,9 @@ return [
         // Custom BookStack
         'Activity'    => BookStack\Facades\Activity::class,
         'Theme'       => BookStack\Facades\Theme::class,
+
+        // Package for export excel
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
     ],
 
     // Proxy configuration

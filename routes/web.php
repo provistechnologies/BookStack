@@ -62,6 +62,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/session-tasks/', [SessionUserController::class, 'allSessionTask']);
     Route::get('/session-tasks/{id}', [SessionUserController::class, 'sessionTask']);
     Route::post('/session-status-update/{id}', [SessionUserController::class, 'sessionStatusUpdate']);
+    Route::get('/sessions-tasks-export', [SessionUserController::class, 'tasksExport'])->name('sessions-tasks-export');
 
     // Shelves
     Route::get('/create-shelf', [BookshelfController::class, 'create']);
