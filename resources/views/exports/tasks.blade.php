@@ -8,6 +8,9 @@
                 UserName
             </th>
             <th>
+                Email
+            </th>
+            <th>
                 Task
             </th>
             <th>
