@@ -130,3 +130,20 @@
         </main>
     </div>
 @stop
+
+@section('scripts')
+<script nonce="{{ $cspNonce }}">
+  
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth() + 1;
+  var yyyy = today.getFullYear();
+  today = yyyy + '-' + mm + '-' + dd;
+  document.getElementById("toDate").setAttribute("max", today);
+  document.getElementById("fromDate").setAttribute("max", today);
+  let from_date = document.getElementById("fromDate");
+  from_date.addEventListener("change", function(event) {
+    document.getElementById("toDate").setAttribute("min", this.value);
+  });
+</script>
+@endsection

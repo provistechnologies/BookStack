@@ -104,10 +104,10 @@
                                    </td>
                                    <td scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                     <button>
-                                      <a href="{{ url('/session-screenshots/'.$session->id)  }}" class="card-footer-link">View Screenshots</a>
+                                      <a href="{{ url('/session-screenshots/'.$session->id)  }}" class="">View Screenshots</a>
                                     </button>
                                     <button>
-                                      <a href="{{ url('/session-tasks/'.$session->id)  }}" class="card-footer-link">View Tasks</a>
+                                      <a href="{{ url('/session-tasks/'.$session->id)  }}" class="">View Tasks</a>
                                     </button>
                                    </td>
                                  </tr>
@@ -146,7 +146,6 @@
   document.getElementById("fromDate").setAttribute("max", today);
   let from_date = document.getElementById("fromDate");
   from_date.addEventListener("change", function(event) {
-    console.log('okay');
     document.getElementById("toDate").setAttribute("min", this.value);
   });
 
